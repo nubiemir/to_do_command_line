@@ -1,14 +1,21 @@
-use to_do::structs::{done::Done, pending::Pending};
-
-use crate::to_do::enums::TaskStatus;
+use to_do::{
+    enums::TaskStatus,
+    to_do_factory,
+    traits::{create::Create, delete::Delete, get::Get},
+    ItemTypes,
+};
 mod to_do;
 
 fn main() {
-    let done = Done::new("Play football");
-    let pending = Pending::new("Cooking dinner");
-
-    println!(
-        "Done {}\nPending {}",
-        done.super_struct.title, pending.super_struct.title
-    );
+    let to_do_items = to_do_factory("Play football", TaskStatus::PENDING);
+    match to_do_items {
+        ItemTypes::Done(item) => {
+            item.get(&item.super_struct.title);
+            item.delete(&item.super_struct.title)
+        }
+        ItemTypes::Pending(item) => {
+            item.get(&item.super_struct.title);
+            item.create(&item.super_struct.title)
+        }
+    }
 }

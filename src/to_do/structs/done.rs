@@ -1,4 +1,7 @@
-use crate::to_do::enums::TaskStatus;
+use crate::to_do::{
+    enums::TaskStatus,
+    traits::{delete::Delete, edit::Edit, get::Get},
+};
 
 use super::base::Base;
 
@@ -17,3 +20,7 @@ impl Done {
         };
     }
 }
+
+impl Get for Done {}
+impl Delete for Done {}
+impl Edit for Done {}
