@@ -14,3 +14,19 @@ impl fmt::Display for TaskStatus {
         }
     }
 }
+
+impl TaskStatus {
+    pub fn stringify(&self) -> String {
+        match self {
+            TaskStatus::DONE => "Done".to_string(),
+            TaskStatus::PENDING => "Pending".to_string(),
+        }
+    }
+    pub fn from_string(input_string: String) -> Self {
+        match input_string.as_str() {
+            "DONE" => TaskStatus::DONE,
+            "PENDING" => TaskStatus::PENDING,
+            _ => panic!("input {} not supported", input_string),
+        }
+    }
+}
